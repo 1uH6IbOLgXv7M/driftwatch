@@ -38,3 +38,15 @@ func IndexByName(resources []Resource) map[string]Resource {
 	}
 	return idx
 }
+
+// FilterDrifted returns only the resources that are marked as drifted.
+// A resource is considered drifted when its Drifted field is true.
+func FilterDrifted(resources []Resource) []Resource {
+	out := make([]Resource, 0, len(resources))
+	for _, r := range resources {
+		if r.Drifted {
+			out = append(out, r)
+		}
+	}
+	return out
+}
