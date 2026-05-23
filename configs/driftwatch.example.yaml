@@ -1,0 +1,24 @@
+# driftwatch example configuration
+# Copy to driftwatch.yaml and adjust to your environment.
+
+daemon:
+  # How often driftwatch polls for drift. Supports Go duration strings.
+  poll_interval: 5m
+  # Log verbosity: debug | info | warn | error
+  log_level: info
+
+cloud:
+  # Cloud provider to check against: aws | gcp | azure
+  provider: aws
+  # Target region for live resource inspection.
+  region: us-east-1
+  # Named profile from ~/.aws/credentials (AWS-specific, optional).
+  profile: default
+
+terraform:
+  # Path to a local state file. Mutually exclusive with backend_type.
+  state_file: terraform.tfstate
+  # Terraform workspace name (defaults to "default").
+  workspace: default
+  # Remote backend type: s3 | gcs | azurerm | remote (optional).
+  # backend_type: s3
