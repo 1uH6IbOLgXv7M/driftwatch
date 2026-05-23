@@ -65,3 +65,22 @@ func TestLocalFileReader_Read_InvalidJSON(t *testing.T) {
 		t.Fatal("expected error for invalid JSON, got nil")
 	}
 }
+
+func TestLocalFileReader_Read_EmptyResources(t *testing.T) {
+	// Verify that a valid state file with no resources is read without error
+	// and returns an empty resource list rather than nil.
+	empty := state.State{
+		Version:   4,
+		Resources: []state.Resource{},
+	}
+	path := writeTempState(t, empty)
+
+	reader := state.NewLocalFileReader(path)
+	got, err := reader.Read()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(got.Resources) != 0 {
+		t.Errorf("resources: got %d, want 0", len(got.Resources))
+	}
+}
