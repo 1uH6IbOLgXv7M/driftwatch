@@ -52,3 +52,10 @@ func TestIndexByName(t *testing.T) {
 		t.Error("expected key 'vm' in index")
 	}
 }
+
+func TestFilterByProvider_NoMatch(t *testing.T) {
+	got := state.FilterByProvider(testResources, "azure")
+	if len(got) != 0 {
+		t.Errorf("expected 0 results for unknown provider, got %d", len(got))
+	}
+}
